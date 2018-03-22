@@ -1,4 +1,5 @@
 library(SASxport) #Reads SAS files.
+library(dplyr)
 
 # Store the urls of the Full Year Consolidated data files
 fy2015 <-
@@ -79,17 +80,35 @@ for (i in 2006:2015) {
   fileName <-
     paste("FY", i, sep = '')                  # Assign variable name for each year file
   assign(fileName, read.xport(unzippedFile))  # Associate the variable name with the data
+  saveRDS(fileName, read.xport(unzippedFile))
   unlink(temp)                                # Delete the temporary file
+
 }
+
 
 
 # A loop to gather the data from the web and save the files
 for (i in 2006:2015) {
-  download.file(urlMC[i - 2005], temp <-
-                  tempfile())                 # Download the zipped data
-  unzippedFile = unzip(temp)                  # Store the data in a temporary file
+  
+  temp <- tempfile()
+  
+  urlMC[i - 2005] %>% 
+    download.file(temp) # Download the zipped data
+  
+  unzippedFile <- 
+    temp %>% 
+    unzip %>% 
+    read.xport %>% 
+    mutate(year=i, dataSet="mc")    # Store the data in a temporary file
+  
   fileName <-
-    paste("MC", i, sep = '')                  # Assign variable name for each year file
-  assign(fileName, read.xport(unzippedFile))  # Associate the variable name with the data
-  unlink(temp)                                # Delete the temporary file
+    paste("MC", i, sep = '')        # Assign variable name for each year file
+  
+  assign(fileName, unzippedFile)    # Associate the variable name with the data
+  
+  saveRDS(unzippedFile, fileName)
+  
+  unlink(temp)                      # Delete the temporary file
 }
+
+MC2014 <- readRDS("MC2014")
