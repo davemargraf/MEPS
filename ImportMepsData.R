@@ -2,25 +2,25 @@ library(SASxport) #Reads SAS files.
 
 # Store the urls of the Full Year Consolidated data files
 fy2015 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h180ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h181ssp.zip"
 fy2014 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h170ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h171ssp.zip"
 fy2013 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h162ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h163ssp.zip"
 fy2012 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h154ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h155ssp.zip"
 fy2011 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h146ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h147ssp.zip"
 fy2010 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h137ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h138ssp.zip"
 fy2009 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h128ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h129ssp.zip"
 fy2008 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h120ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h121ssp.zip"
 fy2007 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h112ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h113ssp.zip"
 fy2006 <-
-  "https://meps.ahrq.gov/mepsweb/data_files/pufs/h104ssp.zip"
+  "https://meps.ahrq.gov/data_files/pufs/h105ssp.zip"
 
 # Store the urls of the Medical Conditions files
 mc2015 <-
@@ -74,76 +74,22 @@ urlMC <-
 # A loop to gather the Full Year data from the web and save the files
 for (i in 2006:2015) {
   download.file(urlFY[i - 2005], temp <-
-                  tempfile()) # Download the zipped data
-  unzippedFile = unzip(temp)                       # Store the data in a temporary file
+                  tempfile())                 # Download the zipped data
+  unzippedFile = unzip(temp)                  # Store the data in a temporary file
   fileName <-
-    paste("FY", i, sep = '')                     # Assign variable name for each year file
-  assign(fileName, read.xport(unzippedFile))            # Associate the variable name with the data
-  unlink(temp)                                      # Delete the temporary file
+    paste("FY", i, sep = '')                  # Assign variable name for each year file
+  assign(fileName, read.xport(unzippedFile))  # Associate the variable name with the data
+  unlink(temp)                                # Delete the temporary file
 }
 
 
 # A loop to gather the data from the web and save the files
 for (i in 2006:2015) {
   download.file(urlMC[i - 2005], temp <-
-                  tempfile()) # Download the zipped data
-  unzippedFile = unzip(temp)                       # Store the data in a temporary file
+                  tempfile())                 # Download the zipped data
+  unzippedFile = unzip(temp)                  # Store the data in a temporary file
   fileName <-
-    paste("MC", i, sep = '')                     # Assign variable name for each year file
-  assign(fileName, read.xport(unzippedFile))            # Associate the variable name with the data
-  unlink(temp)                                      # Delete the temporary file
+    paste("MC", i, sep = '')                  # Assign variable name for each year file
+  assign(fileName, read.xport(unzippedFile))  # Associate the variable name with the data
+  unlink(temp)                                # Delete the temporary file
 }
-
-
-
-
-###########################################
-# Extra code
-###########################################
-#for (i in seq_along(url_mc)){
-for (i in 2006:2015) {
-  print(url_mc[i - 2005])
-  download.file(url_mc[i - 2005], temp <- tempfile())
-  unzipped_file = unzip(temp)
-  nam <- paste("MC", i, sep = '')
-  print(nam)
-  assign(nam, read.xport(unzipped_file))
-  unlink(temp)  # Unlink to delete temporary file
-}
-
-2005
-2004
-2003
-2002
-2001
-2000
-1999
-1998
-1997
-1996
-
-mc2015 <- read.xport("meps_mc2015h180.ssp")
-url2015 <-
-  read.xport('https://meps.ahrq.gov/data_files/pufs/h180.ssp')
-
-url  <- 0
-url <-
-  'http://biostat.mc.vanderbilt.edu/wiki/pub/Main/Hmisc/test2.xpt'
-
-urlTest <- read.xport(url)
-
-url <-
-  'http://biostat.mc.vanderbilt.edu/wiki/pub/Main/Hmisc/test2.xpt'
-w <- lookup.xport(url)
-## End(Not run)
-
-url <-
-  'http://biostat.mc.vanderbilt.edu/wiki/pub/Main/Hmisc/test2.xpt'
-w <- lookup.xport(url)
-
-#2013 Full consolidated
-download.file("https://meps.ahrq.gov/mepsweb/data_files/pufs/h163ssp.zip",
-              temp <- tempfile())
-unzipped_file = unzip(temp)
-h163 = read.xport(unzipped_file)
-unlink(temp)  # Unlink to delete temporary file
