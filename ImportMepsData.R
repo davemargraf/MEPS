@@ -71,7 +71,7 @@ urlMC <-
     mc2014,
     mc2015)
 
-bigFY <- data.frame()
+#bigFY <- data.frame()
 
 # A loop to gather the Full Year data from the web and save the files
 for (i in 2006:2015) {
@@ -91,13 +91,16 @@ for (i in 2006:2015) {
   
   assign(fileName, unzippedFile)    # Associate the variable name with the data
   
-  bigFY <- bind_rows(bigFY, unzippedFile)
+  #bigFY <- bind_rows(bigFY, unzippedFile)
   
   #saveRDS(unzippedFile, fileName)
   
   unlink(temp)                      # Delete the temporary file
-  
+  #gc()
 }
+
+#bigFy <- bind_rows(FY2006:FY201)
+saveRDS(bigFY, "allFYdata")
 
 
 bigMC <- data.frame()
