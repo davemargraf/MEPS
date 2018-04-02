@@ -103,7 +103,7 @@ for (i in 2006:2015) {
 saveRDS(bigFY, "allFYdata")
 
 
-bigMC <- data.frame()
+#bigMC <- data.frame()
 
 # A loop to gather the data from the web and save the files
 for (i in 2006:2015) {
@@ -123,12 +123,74 @@ for (i in 2006:2015) {
   
   assign(fileName, unzippedFile)    # Associate the variable name with the data
   
-  bigMC <- bind_rows(bigMC, unzippedFile)
+  #bigMC <- bind_rows(bigMC, unzippedFile)
   
   #saveRDS(unzippedFile, fileName)
   
   unlink(temp)                      # Delete the temporary file
 }
 
-saveRDS(bigMC, "allMCdata")
+#saveRDS(bigMC, "allMCdata")
 
+###save csv ad Rdata
+write.csv(FY2006,file="FY2006.csv")
+write.csv(FY2007,file="FY2007.csv")
+write.csv(FY2008,file="FY2008.csv")
+write.csv(FY2009,file="FY2009.csv")
+write.csv(FY2010,file="FY2010.csv")
+write.csv(FY2011,file="FY2011.csv")
+write.csv(FY2012,file="FY2012.csv")
+write.csv(FY2013,file="FY2013.csv")
+write.csv(FY2014,file="FY2014.csv")
+write.csv(FY2015,file="FY2015.csv")
+
+save(FY2006,file="FY2006.RData")
+save(FY2007,file="FY2007.RData")
+save(FY2008,file="FY2008.RData")
+save(FY2009,file="FY2009.RData")
+save(FY2010,file="FY2010.RData")
+save(FY2011,file="FY2011.RData")
+save(FY2012,file="FY2012.RData")
+save(FY2013,file="FY2013.RData")
+save(FY2014,file="FY2014.RData")
+save(FY2015,file="FY2015.RData")
+
+write.csv(MC2006,file="MC2006.csv")
+write.csv(MC2007,file="MC2007.csv")
+write.csv(MC2008,file="MC2008.csv")
+write.csv(MC2009,file="MC2009.csv")
+write.csv(MC2010,file="MC2010.csv")
+write.csv(MC2011,file="MC2011.csv")
+write.csv(MC2012,file="MC2012.csv")
+write.csv(MC2013,file="MC2013.csv")
+write.csv(MC2014,file="MC2014.csv")
+write.csv(MC2015,file="MC2015.csv")
+
+save(MC2006,file="MC2006.RData")
+save(MC2007,file="MC2007.RData")
+save(MC2008,file="MC2008.RData")
+save(MC2009,file="MC2009.RData")
+save(MC2010,file="MC2010.RData")
+save(MC2011,file="MC2011.RData")
+save(MC2012,file="MC2012.RData")
+save(MC2013,file="MC2013.RData")
+save(MC2014,file="MC2014.RData")
+save(MC2015,file="MC2015.RData")
+
+fullMC <- bind_rows(MC2006, 
+                    MC2007, 
+                    MC2008,
+                    MC2009, 
+                    MC2010,
+                    MC2011,
+                    MC2012,
+                    MC2013,
+                    MC2014,
+                    MC2015)
+save(fullMC, file = "fullMC.Rdata")
+write.csv(fullMC,file="fullMC.csv")
+
+a<-table(fullMC$ICD9CODX)
+a[names(a)==696]
+fullMCICD<-as.data.frame(table(fullMC$ICD9CODX))
+write.csv(fullMCICD, file="icd.csv")
