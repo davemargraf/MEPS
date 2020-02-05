@@ -186,11 +186,11 @@ fullMC <- bind_rows(MC2006,
                     MC2012,
                     MC2013,
                     MC2014,
-                    MC2015)
+                    MC2015) %>% data.frame()
+
 save(fullMC, file = "fullMC.Rdata")
 write.csv(fullMC,file="fullMC.csv")
 
-a<-table(fullMC$ICD9CODX)
-a[names(a)==696]
-fullMCICD<-as.data.frame(table(fullMC$ICD9CODX))
-write.csv(fullMCICD, file="icd.csv")
+
+
+
